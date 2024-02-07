@@ -60,7 +60,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Symbolic Links
+    | Symbolic LinksRepository
     |--------------------------------------------------------------------------
     |
     | Here you may configure the symbolic links that will be created when the

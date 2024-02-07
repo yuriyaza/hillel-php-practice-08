@@ -2,23 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\DB;
+use App\Models\Repositories\LinksRepositoryInterface;
+use App\Services\EncodeInterface;
 use Illuminate\Support\Facades\Redirect;
 
 class UrlRestoreController
 {
-    public function index($url)
+    public function index($shortUrl, LinksRepositoryInterface $links, EncodeInterface $encoder)
     {
-        $id = base_convert($url, 36, 10);
-        $savedUrl = DB::table('urls')
-            ->find($id);
+        $originalUrlId = $encoder->getIdByShortUrl($shortUrl);
 
+        $originalUrl = $links->getUrlById($originalUrlId);
 
-        $redirectUrl = $savedUrl->url;
-        if (!str_starts_with($redirectUrl, 'http://')) {
-            $redirectUrl = 'http://' . $redirectUrl;
+        if (!str_starts_with($originalUrl, 'http')) {
+            $originalUrl = 'http://' . $originalUrl;
         }
 
-        return Redirect::to($redirectUrl);
+        dump($originalUrl);
+        dump(app());
+//        return Redirect::to($originalUrl);
     }
 }

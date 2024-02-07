@@ -8,7 +8,7 @@ return new class extends Migration {
 
     public function up(): void
     {
-        Schema::create('urls', function (Blueprint $table) {
+        Schema::create('links', function (Blueprint $table) {
             $table->id()->from(10000000);
             $table->string('url')->unique();
             $table->timestamp('created_at')->useCurrent();
