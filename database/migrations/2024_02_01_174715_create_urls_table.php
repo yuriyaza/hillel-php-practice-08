@@ -12,7 +12,7 @@ return new class extends Migration {
             // Початкове значення ID для подальшого перетворення
             // в shortUrl (з 10-ї до 36-ї системи числення)
             $table->id()->from(10000001);
-            $table->string('url')->unique();
+            $table->string('url');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });

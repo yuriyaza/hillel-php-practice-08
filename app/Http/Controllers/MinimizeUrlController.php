@@ -19,11 +19,6 @@ class MinimizeUrlController
                 throw new MinimizeUrlControllerException('URL is not defined', 400);
             }
 
-            $originalUrlsCount = $urlRepository->getUrlsCountByUrl($originalUrl);
-            if ($originalUrlsCount > 0) {
-                throw new MinimizeUrlControllerException('URL is already exist', 409);
-            }
-
             $originalUrlId = $urlRepository->insertUrlAndGetId($originalUrl);
             $shortUrl = $urlEncoder->convertIdToShortUrl($hostName, $originalUrlId);
 
