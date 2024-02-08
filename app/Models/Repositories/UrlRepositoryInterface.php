@@ -2,7 +2,7 @@
 
 namespace App\Models\Repositories;
 
-interface LinksRepositoryInterface
+interface UrlRepositoryInterface
 {
     public function getUrlsCountByUrl($url);
     public function getUrlById($id);

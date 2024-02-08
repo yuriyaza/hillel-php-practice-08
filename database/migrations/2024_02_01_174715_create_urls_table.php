@@ -8,8 +8,10 @@ return new class extends Migration {
 
     public function up(): void
     {
-        Schema::create('links', function (Blueprint $table) {
-            $table->id()->from(10000000);
+        Schema::create('urls', function (Blueprint $table) {
+            // Початкове значення ID для подальшого перетворення
+            // в shortUrl (з 10-ї до 36-ї системи числення)
+            $table->id()->from(10000001);
             $table->string('url')->unique();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();

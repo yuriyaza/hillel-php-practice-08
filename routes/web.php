@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\UrlMinimizeController;
-use App\Http\Controllers\UrlRestoreController;
+use App\Http\Controllers\MinimizeUrlController;
+use App\Http\Controllers\RestoreUrlController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/minimize', [UrlMinimizeController::class, 'index']);
-Route::get('/{shortUrl}', [UrlRestoreController::class, 'index']);
+Route::get('/minimize', [MinimizeUrlController::class, 'index']);
+Route::get('/{shortUrl}', [RestoreUrlController::class, 'index']);
