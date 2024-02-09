@@ -4,7 +4,9 @@ namespace App\Models\Repositories;
 
 interface UrlRepositoryInterface
 {
-    public function getUrlsCountByUrl($url);
-    public function getUrlById($id);
-    public function insertUrlAndGetId($url);
+    public function getUrlsCountByUrl(string $url): int;
+
+    public function getUrlById(int $id): string;
+
+    public function insertUrlAndGetId(string $url): int;
 }

@@ -4,6 +4,7 @@ namespace App\Services\Helpers;
 
 interface MaskingDataInterface
 {
-    public function mask($data);
-    public function unMask($data);
+    public function mask(string $data): string;
+
+    public function unMask(string $data): string;
 }
