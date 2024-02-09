@@ -4,8 +4,8 @@ namespace App\Services\Helpers;
 
 class MaskingData implements MaskingDataInterface
 {
-    protected $dictionary = '0123456789abcdefghijklmnopqrstuvwxyz';
-    protected $mask = '5pbrmwi9ql28ocn16zf4t7hajxy0kdsvueg3';
+    protected string $dictionary = '0123456789abcdefghijklmnopqrstuvwxyz';
+    protected string $mask = '5pbrmwi9ql28ocn16zf4t7hajxy0kdsvueg3';
 
     protected ShiftArrayInterface $shiftArray;
 
@@ -14,7 +14,7 @@ class MaskingData implements MaskingDataInterface
         $this->shiftArray = $shiftArray;
     }
 
-    public function mask($data)
+    public function mask(string $data): string
     {
         $sourceData = str_split($data);
 
@@ -32,7 +32,7 @@ class MaskingData implements MaskingDataInterface
         return $shift . implode($maskedData);
     }
 
-    public function unMask($data)
+    public function unMask(string $data): string
     {
         $maskedData = str_split($data);
 

@@ -6,43 +6,47 @@ use Illuminate\Support\Facades\DB;
 
 class UrlRepository implements UrlRepositoryInterface
 {
-    public function getUrlsCountByUrl($url)
+    public function getUrlsCountByUrl(string $url): int
     {
         try {
-            $count = DB::table('urls')
+            return DB::table('urls')
                 ->where('url', '=', $url)
                 ->count('id');
 
-            return $count;
-
         } catch (\Exception) {
-            throw new UrlRepositoryException();
+            throw new UrlRepositoryException('Database connection error', 500);
         }
     }
 
-    public function getUrlById($id)
+    public function getUrlById(int $id): string
     {
         try {
             $data = DB::table('urls')
                 ->find($id);
 
+            if (!$data) {
+                throw new UrlRepositoryException('Data is not found', 404);
+            }
+
             return $data->url;
 
-        } catch (\Exception) {
-            throw new UrlRepositoryException();
+        } catch (UrlRepositoryException $repositoryException) {
+            // Прокидуємо цей Exception в Controller
+            throw $repositoryException;
+
+        } catch (\Exception $exception) {
+            throw new UrlRepositoryException('Database connection error', 500);
         }
     }
 
-    public function insertUrlAndGetId($url)
+    public function insertUrlAndGetId(string $url): int
     {
         try {
-            $id = DB::table('urls')
+            return DB::table('urls')
                 ->insertGetId(['url' => $url]);
 
-            return $id;
-
         } catch (\Exception) {
-            throw new UrlRepositoryException();
+            throw new UrlRepositoryException('Database connection error', 500);
         }
     }
 }

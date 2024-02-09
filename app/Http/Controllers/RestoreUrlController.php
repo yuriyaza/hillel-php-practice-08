@@ -3,38 +3,30 @@
 namespace App\Http\Controllers;
 
 use App\Models\Repositories\UrlRepositoryException;
-use App\Models\Repositories\UrlRepositoryInterface;
 use App\Services\UrlEncoderInterface;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 
 class RestoreUrlController
 {
-    public function index($shortUrl, UrlRepositoryInterface $urlRepository, UrlEncoderInterface $urlEncoder)
+    public function index(string $shortUrl, UrlEncoderInterface $urlEncoder): RedirectResponse|JsonResponse
     {
         try {
-            $originalUrlId = $urlEncoder->convertShortUrlToId($shortUrl);
-
-            $originalUrl = $urlRepository->getUrlById($originalUrlId);
-            if (!$originalUrl) {
-                throw new RestoreUrlControllerException('URL is not found', 404);
-            }
-
-            if (!str_starts_with($originalUrl, 'http')) {
-                $originalUrl = 'http://' . $originalUrl;
-            }
+            $originalUrl = $urlEncoder->convertToOriginalUrl($shortUrl);
 
             return Redirect::to($originalUrl);
 
-        } catch (RestoreUrlControllerException $controllerException) {
+        } catch (RestoreUrlControllerException|UrlRepositoryException $exception) {
             return response()->json([
-                'code' => $controllerException->getCode(),
-                'message' => $controllerException->getMessage(),
-            ], $controllerException->getCode());
+                'code' => $exception->getCode(),
+                'message' => $exception->getMessage(),
+            ], $exception->getCode());
 
-        } catch (UrlRepositoryException $repositoryException) {
+        } catch (\Exception $exception) {
             return response()->json([
                 'code' => 500,
-                'message' => 'Database error',
+                'message' => 'Internal server error',
             ], 500);
         }
     }

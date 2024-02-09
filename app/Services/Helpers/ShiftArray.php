@@ -4,12 +4,11 @@ namespace App\Services\Helpers;
 
 class ShiftArray implements ShiftArrayInterface
 {
-    public function execute($array, $shift)
+    public function execute(array $array, string $shift): array
     {
-        $offset = $shift % count($array);
+        $offset = (int)$shift % count($array);
         $splice = array_splice($array, $offset);
-        $merged = array_merge($splice, $array);
 
-        return $merged;
+        return array_merge($splice, $array);
     }
 }
