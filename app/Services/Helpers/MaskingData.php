@@ -38,7 +38,8 @@ class MaskingData implements MaskingDataInterface
 
         $dictionary = str_split($this->dictionary);
         $mask = str_split($this->mask);
-        $shift = array_splice($maskedData, 0, 1)[0];
+        $maskShiftPrefix = array_splice($maskedData, 0, 1);
+        $shift = (int)$maskShiftPrefix[0];
 
         $maskWithShift = $this->shiftArray->execute($mask, $shift);
 

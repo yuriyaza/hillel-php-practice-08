@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Repositories\UrlRepositoryException;
+use App\Services\UrlEncoderExeption;
 use App\Services\UrlEncoderInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -17,7 +17,7 @@ class RestoreUrlController
 
             return Redirect::to($originalUrl);
 
-        } catch (RestoreUrlControllerException|UrlRepositoryException $exception) {
+        } catch (RestoreUrlControllerException|UrlEncoderExeption $exception) {
             return response()->json([
                 'code' => $exception->getCode(),
                 'message' => $exception->getMessage(),
