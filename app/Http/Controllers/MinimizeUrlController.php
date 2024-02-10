@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Repositories\UrlRepositoryException;
+use App\Services\UrlEncoderExeption;
 use App\Services\UrlEncoderInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -26,7 +26,7 @@ class MinimizeUrlController
                 'shortUrl' => $shortUrl,
             ], 200);
 
-        } catch (MinimizeUrlControllerException|UrlRepositoryException $exception) {
+        } catch (MinimizeUrlControllerException|UrlEncoderExeption $exception) {
             return response()->json([
                 'code' => $exception->getCode(),
                 'message' => $exception->getMessage(),

@@ -18,7 +18,7 @@ class UrlRepository implements UrlRepositoryInterface
         }
     }
 
-    public function getUrlById(int $id): string
+    public function getUrlById(float $id): string
     {
         try {
             $data = DB::table('urls')
@@ -31,7 +31,6 @@ class UrlRepository implements UrlRepositoryInterface
             return $data->url;
 
         } catch (UrlRepositoryException $repositoryException) {
-            // Прокидуємо цей Exception в Controller
             throw $repositoryException;
 
         } catch (\Exception $exception) {
@@ -39,7 +38,7 @@ class UrlRepository implements UrlRepositoryInterface
         }
     }
 
-    public function insertUrlAndGetId(string $url): int
+    public function insertUrlAndGetId(string $url): float
     {
         try {
             return DB::table('urls')

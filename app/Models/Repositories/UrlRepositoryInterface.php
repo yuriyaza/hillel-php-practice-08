@@ -6,7 +6,7 @@ interface UrlRepositoryInterface
 {
     public function getUrlsCountByUrl(string $url): int;
 
-    public function getUrlById(int $id): string;
+    public function getUrlById(float $id): string;
 
-    public function insertUrlAndGetId(string $url): int;
+    public function insertUrlAndGetId(string $url): float;
 }
